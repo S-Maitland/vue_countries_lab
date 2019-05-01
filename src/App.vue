@@ -1,17 +1,30 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <country-list :countries="countries"></country-list>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CountryList from './components/CountryList.vue'
+import ListItem from './components/ListItem.vue'
 
 export default {
   name: 'app',
+  data(){
+    return {
+      countries: []
+    }
+  },
   components: {
-    HelloWorld
+    "country-list": CountryList,
+  },
+  mounted(){
+    //fetch the API data countries
+    fetch('https://restcountries.eu/rest/v2/all')
+    //convert the data response to a json format
+    .then(response => response.json())
+    // put the data into vue object to be used
+    .then(countriesAPI => this.countries = countriesAPI);
   }
 }
 </script>
