@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="countryList">
       <list-item v-for="country in countries" :country="country" :key="country.name"></list-item>
   </div>
 </template>
@@ -17,4 +17,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.countryList {
+  float: left;
+}
 </style>

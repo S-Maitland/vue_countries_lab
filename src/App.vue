@@ -1,7 +1,11 @@
 <template>
   <div id="app">
-    <country-list :countries="countries"></country-list>
-    <country-detail :country="selectedCountry"></country-detail>
+    <div id="countryList">
+      <select-view :countries="countries"></select-view>
+    </div>
+    <div id="countryDetail">
+      <country-detail :country="selectedCountry"></country-detail>
+    </div>
   </div>
 </template>
 
@@ -9,6 +13,7 @@
 import {eventBus} from './main.js'
 import CountryList from './components/CountryList.vue'
 import CountryDetail from './components/CountryDetail.vue'
+import SelectView from './components/SelectView.vue'
 import ListItem from './components/ListItem.vue'
 
 export default {
@@ -21,7 +26,8 @@ export default {
   },
   components: {
     "country-list": CountryList,
-    "country-detail": CountryDetail
+    "country-detail": CountryDetail,
+    "select-view": SelectView
   },
   mounted(){
     //fetch the API data countries
@@ -31,8 +37,8 @@ export default {
     // put the data into vue object to be used
     .then(countriesAPI => this.countries = countriesAPI)
 
-    eventBus.$on('country-selected', (country) => {
-      this.selectedCountry = country;
+    eventBus.$on('country-selected', (index) => {
+      this.selectedCountry = this.countries[index]
     })
   }
 }
@@ -40,12 +46,36 @@ export default {
 
 <style>
 #app {
+  display: flex;
+  flex-direction: row;
+}
+
+#countryList {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: left;
+  color: #2c3e50;
+  margin-top: 60px;
+  list-style: none;
+  width: 500px;
+}
+
+#countryDetail {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 60px 30px;
   list-style: none;
+  height: 300px;
+  overflow: auto;
+  width: 400px;
+}
+
+#countryDetail img {
+  height: 100px;
+  width: 150px;
 }
 </style>
