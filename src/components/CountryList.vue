@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <list-item v-for="country in countries" :country="country" :key="country.name"></list-item>
+      <list-item v-for="country in countries" :country="country" :key="country.name"></list-item>
   </div>
 </template>
 
